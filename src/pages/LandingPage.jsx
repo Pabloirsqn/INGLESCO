@@ -470,7 +470,7 @@ function FinalCTA({ onNavigate }) {
 
 export function LandingPage({ onNavigate }) {
   return (
-    <main className="pb-20">
+    <main className="overflow-x-hidden pb-28 sm:pb-20">
       <header className="sticky top-0 z-40 border-b border-line bg-ivory/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           <Logo />
@@ -487,27 +487,27 @@ export function LandingPage({ onNavigate }) {
         </div>
       </header>
 
-      <section id="inicio" className="relative min-h-[720px] overflow-hidden bg-navy text-white">
+      <section id="inicio" className="relative min-h-[100svh] overflow-hidden bg-navy text-white lg:min-h-[720px]">
         <img
           src={heroBackground}
           alt="Comunidad INGLESCO 2.0 en una ciudad internacional"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-[64%_center] sm:object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/78 to-navy/18" />
-        <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(6,31,73,0.98)_0%,rgba(6,31,73,0.88)_34%,rgba(18,58,143,0.40)_68%,rgba(18,184,232,0.08)_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/58 via-transparent to-navy/10" />
-        <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-10 px-5 py-[72px] lg:grid-cols-[0.84fr_1.16fr] lg:gap-16 xl:gap-20">
-          <div className="max-w-[580px]">
-            <h1 className="max-w-4xl text-5xl font-black leading-[1.02] text-white sm:text-6xl lg:text-6xl xl:text-7xl">
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/86 to-navy/28 lg:via-navy/78 lg:to-navy/18" />
+        <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(6,31,73,0.98)_0%,rgba(6,31,73,0.92)_42%,rgba(18,58,143,0.48)_72%,rgba(18,184,232,0.10)_100%)] lg:bg-[linear-gradient(105deg,rgba(6,31,73,0.98)_0%,rgba(6,31,73,0.88)_34%,rgba(18,58,143,0.40)_68%,rgba(18,184,232,0.08)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/66 via-navy/12 to-navy/24 lg:from-navy/58 lg:via-transparent lg:to-navy/10" />
+        <div className="relative mx-auto grid min-h-[100svh] min-w-0 max-w-7xl items-center gap-8 px-5 pb-12 pt-14 sm:px-6 lg:min-h-[720px] lg:grid-cols-[0.84fr_1.16fr] lg:gap-16 lg:px-5 lg:py-[72px] xl:gap-20">
+          <div className="w-full min-w-0 max-w-[calc(100vw-2.5rem)] sm:max-w-[calc(100vw-3rem)] lg:max-w-[580px]">
+            <h1 className="max-w-[12ch] text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl lg:max-w-4xl lg:text-6xl lg:leading-[1.02] xl:text-7xl">
               No estudies inglés... <span className="text-sky">¡Vívelo!</span>
             </h1>
-            <p className="mt-6 max-w-[580px] text-xl leading-9 text-blue-50">
+            <p className="mt-5 w-full max-w-full text-base leading-7 text-blue-50 sm:text-lg sm:leading-8 lg:mt-6 lg:max-w-[580px] lg:text-xl lg:leading-9">
               Una plataforma para practicar, reforzar con clases, conversar en comunidad y llevar tu inglés a situaciones reales de vida, trabajo y viaje.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button onClick={() => onNavigate('plans')} className="h-12 px-6">Quiero empezar <ArrowRight size={18} /></Button>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row lg:mt-8">
+              <Button onClick={() => onNavigate('plans')} className="h-12 w-full px-6 sm:w-auto">Quiero empezar <ArrowRight size={18} /></Button>
               <button
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/8 px-6 text-sm font900 text-white/95 backdrop-blur transition hover:border-white/40 hover:bg-white/14"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/8 px-6 text-sm font900 text-white/95 backdrop-blur transition hover:border-white/40 hover:bg-white/14 sm:w-auto"
                 onClick={() => goToSection('metodo')}
               >
                 <CirclePlay size={18} /> Ver cómo funciona

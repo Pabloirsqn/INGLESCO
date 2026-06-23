@@ -33,8 +33,8 @@ export function HeroAccordion() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <div className="w-full rounded-[28px] border border-white/35 bg-[rgba(231,238,247,0.28)] p-3 shadow-[0_30px_90px_rgba(6,31,73,0.16)] backdrop-blur-md sm:p-4">
-      <div className="flex gap-3 overflow-x-auto pb-1 lg:h-[470px] lg:gap-3.5 lg:overflow-hidden lg:pb-0">
+    <div className="w-full max-w-full rounded-[24px] border border-white/35 bg-[rgba(231,238,247,0.28)] p-2.5 shadow-[0_30px_90px_rgba(6,31,73,0.16)] backdrop-blur-md sm:p-4 lg:rounded-[28px]">
+      <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 lg:h-[470px] lg:snap-none lg:gap-3.5 lg:overflow-hidden lg:pb-0">
         {heroAccordionItems.map((item, index) => {
           const Icon = item.icon
           const isActive = index === activeIndex
@@ -42,7 +42,7 @@ export function HeroAccordion() {
           return (
             <button
               key={item.title}
-              className={`group relative h-72 min-w-[238px] overflow-hidden rounded-[24px] border border-white/35 text-left shadow-[0_20px_54px_rgba(6,31,73,0.18)] outline-none transition-all duration-500 ease-out focus-visible:ring-2 focus-visible:ring-sky/80 sm:h-80 sm:min-w-[270px] lg:h-full lg:min-w-0 ${
+              className={`group relative h-[280px] min-w-[82vw] max-w-[82vw] snap-center overflow-hidden rounded-[22px] border border-white/35 text-left shadow-[0_20px_54px_rgba(6,31,73,0.18)] outline-none transition-all duration-500 ease-out focus-visible:ring-2 focus-visible:ring-sky/80 sm:h-80 sm:min-w-[320px] sm:max-w-[320px] lg:h-full lg:min-w-0 lg:max-w-none lg:rounded-[24px] ${
                 isActive ? 'lg:flex-[3.8]' : 'lg:flex-[0.74]'
               }`}
               onFocus={() => setActiveIndex(index)}

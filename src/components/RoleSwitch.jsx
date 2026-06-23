@@ -11,7 +11,7 @@ const roles = [
 
 export function RoleSwitch({ current, onChange }) {
   return (
-    <div className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 rounded-full border border-white/60 bg-white/90 p-1.5 shadow-soft backdrop-blur">
+    <div className="fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-3xl -translate-x-1/2 rounded-full border border-white/60 bg-white/90 p-1.5 shadow-soft backdrop-blur sm:bottom-4 sm:w-[calc(100%-2rem)]">
       <div className="grid grid-cols-5 gap-1">
         {roles.map((role) => {
           const Icon = role.icon
@@ -25,7 +25,7 @@ export function RoleSwitch({ current, onChange }) {
               onClick={() => onChange(role.id)}
             >
               <Icon size={16} />
-              <span>{role.label}</span>
+              <span className="hidden sm:inline">{role.label}</span>
             </button>
           )
         })}
