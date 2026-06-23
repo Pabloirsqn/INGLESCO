@@ -1,0 +1,136 @@
+import React from 'react'
+import { ArrowLeft, CheckCircle2, Send } from 'lucide-react'
+import { Logo } from '../assets/logo.jsx'
+import { Badge, Button, Card, SectionTitle } from '../components/ui.jsx'
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$29',
+    tag: 'Preventa',
+    description: 'Para empezar a practicar con constancia y entrar a la comunidad.',
+    features: ['Plataforma de práctica', 'Recursos por nivel', 'Club de conversación mensual', 'Seguimiento básico'],
+  },
+  {
+    name: 'Growth',
+    price: '$59',
+    tag: 'Más elegido',
+    description: 'Para combinar práctica, clases en línea y conversación frecuente.',
+    features: ['Plataforma de práctica', 'Clases en línea semanales', 'Clubes de conversación', 'Progreso guiado'],
+  },
+  {
+    name: 'Global',
+    price: '$89',
+    tag: 'Experiencia completa',
+    description: 'Para avanzar con refuerzo, clubes temáticos e inglés aplicado.',
+    features: ['Clases semanales + mentoría', 'Clubes temáticos', 'Inglés por industria', 'Prevalidación Global'],
+  },
+]
+
+const industries = [
+  'Logística / comercio exterior',
+  'Automotriz',
+  'Medicina / salud',
+  'Negocios',
+  'Travel / hospitality',
+  'Estudios internacionales',
+  'Entrevistas laborales',
+  'Vida diaria / conversación general',
+  'Otro',
+]
+
+const levels = ['A1 inicial', 'A2 básico', 'B1 intermedio', 'B2 intermedio alto', 'No estoy seguro']
+
+export function PlansPage({ onNavigate }) {
+  return (
+    <main className="min-h-screen bg-ivory pb-28">
+      <header className="border-b border-line bg-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <Logo />
+          <Button variant="secondary" onClick={() => onNavigate('landing')}><ArrowLeft size={17} /> Volver a la landing</Button>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-7xl px-5 py-14">
+        <SectionTitle
+          centered
+          eyebrow="Inscripción"
+          title="Elige cómo empezar tu experiencia INGLESCO"
+          text="Selecciona una opción y deja tus datos para que un asesor de INGLESCO confirme tu inscripción."
+        />
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {plans.map((plan) => (
+            <Card key={plan.name} className={`p-6 ${plan.name === 'Growth' ? 'border-cobalt ring-2 ring-blue-100' : ''}`}>
+              <Badge tone={plan.name === 'Growth' ? 'navy' : 'blue'}>{plan.tag}</Badge>
+              <h2 className="mt-5 text-2xl font-black text-navy">{plan.name}</h2>
+              <p className="mt-3 text-sm leading-6 text-ink/65">{plan.description}</p>
+              <p className="mt-5 text-4xl font-black text-cobalt">{plan.price}<span className="text-base text-ink/60">/mes</span></p>
+              <div className="mt-6 space-y-3">
+                {plan.features.map((feature) => (
+                  <p key={feature} className="flex items-center gap-2 text-sm text-ink/75">
+                    <CheckCircle2 size={17} className="text-cobalt" />
+                    {feature}
+                  </p>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-8 px-5 pb-16 lg:grid-cols-[0.85fr_1.15fr]">
+        <Card className="bg-navy p-8 text-white">
+          <Badge tone="blue">Sin pagos reales todavía</Badge>
+          <h2 className="mt-5 text-3xl font-black leading-tight">Un asesor te ayudará a confirmar el siguiente paso.</h2>
+          <p className="mt-4 leading-7 text-blue-100">
+            Esta página funciona como checkout mock. No procesa pagos; solo captura intención de inscripción para validar el flujo comercial.
+          </p>
+          <div className="mt-8 space-y-3">
+            {['Confirmación de plan', 'Orientación por nivel', 'Contexto o industria de interés', 'Siguiente paso de inscripción'].map((item) => (
+              <p key={item} className="flex items-center gap-3 font900"><CheckCircle2 size={18} className="text-sky" /> {item}</p>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <h2 className="text-2xl font-black text-navy">Formulario de inscripción</h2>
+          <p className="mt-2 text-sm leading-6 text-ink/65">Un asesor de INGLESCO te contactará para confirmar tu inscripción y explicarte el siguiente paso.</p>
+
+          <form className="mt-6 grid gap-4 sm:grid-cols-2">
+            <Field label="Nombre" placeholder="Tu nombre completo" />
+            <Field label="WhatsApp" placeholder="+52..." />
+            <Field label="País" placeholder="México, Colombia, Perú..." />
+            <Select label="Nivel actual" options={levels} />
+            <Field label="Objetivo principal" placeholder="Trabajo, viajes, estudios..." className="sm:col-span-2" />
+            <Select label="Industria o contexto de interés" options={industries} />
+            <Select label="Plan de interés" options={plans.map((plan) => plan.name)} />
+          </form>
+
+          <Button className="mt-6 w-full"><Send size={17} /> Enviar solicitud</Button>
+        </Card>
+      </section>
+    </main>
+  )
+}
+
+function Field({ label, placeholder, className = '' }) {
+  return (
+    <label className={className}>
+      <span className="text-sm font900 text-navy">{label}</span>
+      <input className="mt-2 w-full rounded-lg border border-line bg-pearl px-4 py-3 outline-none focus:border-cobalt" placeholder={placeholder} />
+    </label>
+  )
+}
+
+function Select({ label, options }) {
+  return (
+    <label>
+      <span className="text-sm font900 text-navy">{label}</span>
+      <select className="mt-2 w-full rounded-lg border border-line bg-pearl px-4 py-3 outline-none focus:border-cobalt">
+        <option value="">Selecciona una opción</option>
+        {options.map((option) => <option key={option} value={option}>{option}</option>)}
+      </select>
+    </label>
+  )
+}

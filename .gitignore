@@ -1,0 +1,7 @@
+﻿node_modules
+dist
+.pnpm-store
+tmp
+.env
+.env.local
+.DS_Store
