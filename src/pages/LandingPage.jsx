@@ -300,7 +300,7 @@ function IndustryExplorer() {
   const IndustryIcon = industry.icon
 
   return (
-    <section id="industrias" className="bg-ivory py-14">
+    <section id="industrias" className="bg-ivory pb-28 pt-14 sm:py-14">
       <div className="mx-auto max-w-7xl px-5">
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeader
@@ -310,18 +310,18 @@ function IndustryExplorer() {
           <Button variant="secondary" className="w-full sm:w-fit" onClick={() => goToSection('global')}>Ver INGLESCO Global <ArrowRight size={18} /></Button>
         </div>
 
-        <div className="relative overflow-hidden rounded-[25px] border border-[#C7D1DE]/30 bg-white shadow-[0_18px_48px_rgba(11,29,61,0.06)]">
+        <div className="relative w-full overflow-hidden rounded-[25px] border border-[#C7D1DE]/30 bg-white shadow-[0_18px_48px_rgba(11,29,61,0.06)]">
           <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 w-[2px] bg-gradient-to-b from-[#1E63F2] via-[#00AEEF] to-[#E7EEF7]" />
-          <div className="grid overflow-hidden rounded-[24px] bg-white lg:grid-cols-[300px_1fr]">
-            <div className="border-b border-[#C7D1DE]/28 bg-[#F2EEE6]/45 p-4 lg:border-b-0 lg:border-r">
-            <div className="flex gap-2 overflow-x-auto pb-2 lg:block lg:space-y-2 lg:overflow-visible lg:pb-0">
+          <div className="grid min-w-0 rounded-[24px] bg-white lg:grid-cols-[300px_1fr]">
+            <div className="min-w-0 border-b border-[#C7D1DE]/28 bg-[#F2EEE6]/45 p-4 lg:border-b-0 lg:border-r">
+            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:block lg:space-y-2 lg:overflow-visible lg:px-0 lg:pb-0">
               {industries.map((item, index) => {
                 const Icon = item.icon
                 const isActive = index === activeIndustry
                 return (
                   <button
                     key={item.name}
-                    className={`flex min-w-fit items-center gap-3 rounded-[15px] border px-4 py-3 text-left text-sm font900 transition lg:w-full ${isActive ? 'border-cobalt/20 bg-navy text-white shadow-[0_12px_24px_rgba(11,29,61,0.14)]' : 'border-transparent bg-white/58 text-ink/70 hover:border-[#1E63F2]/14 hover:bg-white'}`}
+                    className={`flex min-h-11 min-w-fit shrink-0 items-center gap-3 whitespace-nowrap rounded-[15px] border px-4 py-3 text-left text-sm font900 transition lg:w-full ${isActive ? 'border-cobalt/20 bg-navy text-white shadow-[0_12px_24px_rgba(11,29,61,0.14)]' : 'border-transparent bg-white/58 text-ink/70 hover:border-[#1E63F2]/14 hover:bg-white'}`}
                     onClick={() => setActiveIndustry(index)}
                   >
                     <Icon size={16} strokeWidth={2.1} className={isActive ? 'text-sky' : 'text-cobalt/80'} />
@@ -332,31 +332,31 @@ function IndustryExplorer() {
             </div>
           </div>
 
-            <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="p-6 sm:p-8">
+            <div className="grid min-w-0 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="min-w-0 p-5 sm:p-8">
               <div className="flex items-start gap-4">
                 <div className="rounded-2xl border border-[#1E63F2]/12 bg-[#E7EEF7]/55 p-3 text-cobalt"><IndustryIcon size={24} strokeWidth={2.1} /></div>
-                <div>
+                <div className="min-w-0">
                   <Badge>{industry.full}</Badge>
-                  <h3 className="mt-4 text-3xl font-black leading-tight text-navy">{industry.name}</h3>
+                  <h3 className="mt-4 text-2xl font-black leading-tight text-navy sm:text-3xl">{industry.name}</h3>
                 </div>
               </div>
-              <p className="mt-5 text-lg leading-8 text-ink/70">{industry.text}</p>
+              <p className="mt-5 text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{industry.text}</p>
               <div className="mt-6 space-y-2.5">
                 {industry.bullets.map((item) => (
-                  <div key={item} className="flex items-center gap-3 rounded-[15px] border border-[#1E63F2]/10 bg-[#F2EEE6]/45 px-4 py-3">
+                  <div key={item} className="flex items-start gap-3 rounded-[15px] border border-[#1E63F2]/10 bg-[#F2EEE6]/45 px-4 py-3">
                     <CheckCircle2 size={17} className="text-cobalt" />
-                    <span className="font900 text-navy/92">{item}</span>
+                    <span className="min-w-0 break-words font900 leading-6 text-navy/92">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="relative min-h-[360px] overflow-hidden bg-navy">
-              <img src={industry.image} alt={industry.full} loading="lazy" className="h-full min-h-[360px] w-full object-cover opacity-90" />
+            <div className="relative min-h-[240px] overflow-hidden bg-navy sm:min-h-[280px] lg:min-h-[360px]">
+              <img src={industry.image} alt={industry.full} loading="lazy" className="h-full min-h-[240px] w-full object-cover object-center opacity-90 sm:min-h-[280px] lg:min-h-[360px]" />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/75 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 rounded-[18px] border border-white/22 bg-navy/62 p-4 shadow-[0_18px_42px_rgba(11,29,61,0.22)] backdrop-blur-md">
+              <div className="absolute bottom-4 left-4 right-4 rounded-[18px] border border-white/22 bg-navy/62 p-4 shadow-[0_18px_42px_rgba(11,29,61,0.22)] backdrop-blur-md sm:bottom-5 sm:left-5 sm:right-5">
                 <p className="text-xs font900 text-blue-100">Situaciones reales</p>
-                <p className="mt-2 text-lg font-black leading-tight text-white">{industry.bullets.join(' · ')}</p>
+                <p className="mt-2 break-words text-base font-black leading-tight text-white sm:text-lg">{industry.bullets.join(' · ')}</p>
               </div>
             </div>
           </div>
