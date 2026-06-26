@@ -19,7 +19,7 @@ export function RoleSwitch({ current, onChange }) {
           return (
             <button
               key={role.id}
-              className={`flex items-center justify-center gap-2 rounded-full px-3 py-2 text-xs font800 transition sm:text-sm ${
+              className={`flex min-h-11 items-center justify-center gap-2 rounded-full px-3 py-2 text-xs font800 transition sm:text-sm ${
                 active ? 'bg-navy text-white shadow-glow' : 'text-ink hover:bg-mist'
               }`}
               onClick={() => onChange(role.id)}

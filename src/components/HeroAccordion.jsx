@@ -11,14 +11,14 @@ const heroAccordionItems = [
   },
   {
     title: 'Clases en línea',
-    text: 'Refuerza tu inglés con guía real, no solo ejercicios.',
+    text: 'Refuerza tu inglés con guía real y sesiones enfocadas.',
     image: 'https://images.unsplash.com/photo-1598257006458-087169a1f08d?auto=format&fit=crop&w=900&q=84',
     icon: Video,
   },
   {
-    title: 'Clubes de conversación',
-    text: 'Habla, conecta y gana confianza en comunidad.',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=84',
+    title: 'Networking en inglés',
+    text: 'Conecta, conversa y gana confianza en comunidad.',
+    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=84',
     icon: MessageCircle,
   },
   {
@@ -33,8 +33,8 @@ export function HeroAccordion() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <div className="w-full max-w-full rounded-[24px] border border-white/35 bg-[rgba(231,238,247,0.28)] p-2.5 shadow-[0_30px_90px_rgba(6,31,73,0.16)] backdrop-blur-md sm:p-4 lg:rounded-[28px]">
-      <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 lg:h-[470px] lg:snap-none lg:gap-3.5 lg:overflow-hidden lg:pb-0">
+    <div className="w-full max-w-full overflow-hidden rounded-[24px] border border-white/35 bg-[rgba(231,238,247,0.28)] p-2.5 shadow-[0_30px_90px_rgba(6,31,73,0.16)] backdrop-blur-md sm:p-4 lg:rounded-[28px]">
+      <div className="flex min-w-0 snap-x snap-mandatory gap-3 overflow-x-auto pb-1 lg:h-[470px] lg:snap-none lg:gap-3.5 lg:overflow-hidden lg:pb-0">
         {heroAccordionItems.map((item, index) => {
           const Icon = item.icon
           const isActive = index === activeIndex
@@ -50,7 +50,7 @@ export function HeroAccordion() {
               type="button"
             >
               <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              <div className={`absolute inset-0 transition duration-500 ${isActive ? 'bg-gradient-to-t from-navy/88 via-navy/34 to-navy/8' : 'bg-navy/64'}`} />
+              <div className={`absolute inset-0 transition duration-500 ${isActive ? 'bg-gradient-to-t from-navy/92 via-navy/42 to-navy/12' : 'bg-navy/70'}`} />
               <div className="absolute inset-x-0 bottom-0 p-5 text-white lg:p-6">
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/15 backdrop-blur">
                   <Icon size={20} className="text-sky" />

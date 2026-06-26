@@ -11,61 +11,61 @@ import {
   Globe2,
   HeartPulse,
   Hotel,
-  Languages,
+  Menu,
   MessageCircle,
   UsersRound,
-  Video,
+  X,
 } from 'lucide-react'
 import { Logo } from '../assets/logo.jsx'
 import heroBackground from '../assets/hero-inglesco-global.png'
+import { BrandTimeline } from '../components/BrandTimeline.jsx'
 import { HeroAccordion } from '../components/HeroAccordion.jsx'
 import { Badge, Button, Card } from '../components/ui.jsx'
 
 const history = [
-  ['Hace más de 30 años', 'Nace una visión educativa más humana, práctica y conectada con la vida real.'],
-  ['2013', 'POSIBLE reconoce la propuesta temática y de vanguardia que hoy inspira esta nueva etapa.'],
-  ['Hoy', 'INGLESCO 2.0 evoluciona como plataforma, clases, clubes, comunidad e inglés aplicado.'],
+  {
+    year: '1996',
+    title: 'Nace INGLESCO',
+    text: 'Nace como una escuela de inglés temática, creada para que aprender el idioma se sintiera más cercano, práctico y conectado con situaciones reales, no como una clase tradicional más.',
+    type: 'origin',
+  },
+  {
+    year: '2013',
+    title: 'Reconocimiento POSIBLE',
+    text: 'INGLESCO obtiene el primer lugar entre más de 200 mil ideas en POSIBLE de Fundación Televisa, gracias a una propuesta educativa innovadora, temática y de vanguardia.',
+    type: 'recognition',
+  },
+  {
+    year: '2026',
+    title: 'Evoluciona a INGLESCO 2.0',
+    text: 'La marca vuelve más fuerte: una plataforma moderna que integra práctica digital, clases, comunidad, networking e INGLESCO Global para llevar el inglés a la vida real.',
+    type: 'evolution',
+  },
 ]
 
-const methodSteps = [
-  ['Ubica tu nivel', 'Empiezas desde una base clara.'],
-  ['Practica en plataforma', 'Mantienes contacto frecuente con el idioma.'],
-  ['Refuerza con clases', 'Avanzas con profesores y estructura.'],
-  ['Conversa en comunidad', 'Ganas seguridad en espacios reales.'],
-  ['Aplica el inglés', 'Lo conectas con viajes, trabajo e industrias.'],
-]
-
-const weekStats = [
-  ['4', 'prácticas en plataforma'],
-  ['1', 'clase en línea'],
-  ['2', 'clubes de conversación'],
-  ['1', 'contexto aplicado'],
-]
-
-const weekChips = [
-  ['Plataforma', Languages],
-  ['Clases', Video],
-  ['Clubes', MessageCircle],
-  ['Inglés aplicado', BriefcaseBusiness],
+const liveEnglishSteps = [
+  ['Practica', 'Crea constancia con rutas claras, ejercicios guiados y contacto frecuente con el idioma.', CheckCircle2],
+  ['Conecta', 'Gana confianza hablando con profesores, compañeros y espacios diseñados para soltar el inglés.', MessageCircle],
+  ['Vive', 'Lleva tu inglés a vida diaria, trabajo, viajes, networking e INGLESCO Global.', Globe2],
 ]
 
 const clubTypes = [
   {
-    title: 'Online Club',
-    text: 'Sesiones en línea para hablar con más frecuencia, mantener ritmo y practicar desde cualquier lugar.',
-    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=900&q=84',
+    title: 'Club en línea',
+    text: 'Sesiones guiadas para hablar con frecuencia, mantener ritmo y practicar desde cualquier lugar.',
+    image: 'https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=900&q=84',
     tag: 'Online',
   },
   {
-    title: 'Coffee / Park Talk',
-    text: 'Encuentros presenciales en cafés, parques o coworkings según la comunidad y la actividad.',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=84',
+    title: 'Coffee Talks',
+    text: 'Encuentros en cafés, parques o coworkings para practicar en contextos relajados y reales.',
+    image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=900&q=84',
     tag: 'Presencial',
   },
   {
-    title: 'Thematic Sessions',
-    text: 'Conversaciones sobre viajes, negocios, cultura, entrevistas y contextos profesionales.',
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=84',
+    title: 'Sesiones temáticas',
+    text: 'Conversaciones sobre viajes, negocios, entrevistas, cultura y situaciones de la vida real.',
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=84',
     tag: 'Temático',
   },
 ]
@@ -104,8 +104,8 @@ const industries = [
     icon: BriefcaseBusiness,
   },
   {
-    name: 'Travel',
-    full: 'Travel & hospitality',
+    name: 'Viajes',
+    full: 'Viajes y hospitalidad',
     text: 'Muévete con confianza en aeropuertos, hoteles, tours, restaurantes y situaciones comunes de viaje.',
     bullets: ['Resolver en aeropuerto', 'Pedir apoyo en hotel', 'Conversar en tours'],
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=84',
@@ -138,15 +138,13 @@ const industries = [
 ]
 
 const destinations = [
-  ['Toronto', 'https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=700&q=82'],
-  ['Vancouver', 'https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&w=700&q=82'],
-  ['Madrid', 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=700&q=82'],
-  ['Dublín', 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?auto=format&fit=crop&w=700&q=82'],
-  ['Londres', 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=700&q=82'],
-  ['Melbourne', 'https://images.unsplash.com/photo-1545044846-351ba102b6d5?auto=format&fit=crop&w=700&q=82'],
+  { city: 'Tokyo', tag: 'Exploración global', image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=700&q=82' },
+  { city: 'Vancouver', tag: 'Inglés y vida urbana', image: 'https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&w=700&q=82' },
+  { city: 'Nueva York', tag: 'Oportunidades y networking', image: 'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?auto=format&fit=crop&w=700&q=82' },
+  { city: 'Dublín', tag: 'Inmersión en inglés', image: 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?auto=format&fit=crop&w=700&q=82' },
+  { city: 'Londres', tag: 'Experiencia internacional', image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=700&q=82' },
+  { city: 'Melbourne', tag: 'Vida global', image: 'https://images.unsplash.com/photo-1545044846-351ba102b6d5?auto=format&fit=crop&w=700&q=82' },
 ]
-
-const communityItems = ['Clubes en vivo', 'Red de apoyo', 'Cultura internacional', 'Networking', 'Retos semanales', 'Historias de avance']
 
 function goToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -162,104 +160,92 @@ function SectionHeader({ eyebrow, title, text, centered = false, light = false }
   )
 }
 
-function StatChips({ items }) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {items.map((item) => <Badge key={item}>{item}</Badge>)}
-    </div>
-  )
-}
-
 function HistorySection() {
   return (
-    <section id="historia" className="bg-white py-14">
+    <section id="historia" className="bg-[#F2EEE6] py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-5">
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div>
-            <SectionHeader
-              eyebrow="Marca con historia"
-              title="INGLESCO 2.0 está de vuelta."
-              text="Una historia educativa con visión práctica evoluciona para una nueva generación de alumnos que necesitan usar el inglés en la vida real."
-            />
-            <p className="mt-6 text-xl font-black leading-tight text-cobalt">No volvemos para enseñar inglés como siempre. Volvemos para ayudarte a vivirlo.</p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {history.map(([date, text], index) => (
-              <div key={date} className="rounded-lg border border-line bg-pearl p-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cobalt text-sm font-black text-white">{index + 1}</div>
-                <p className="mt-5 text-lg font-black text-navy">{date}</p>
-                <p className="mt-2 text-sm leading-6 text-ink/70">{text}</p>
-              </div>
-            ))}
-          </div>
+        <SectionHeader
+          title="Una historia que vuelve a evolucionar."
+          text="Lo que empezó como una escuela temática hoy evoluciona en una plataforma para practicar, conectar y llevar el inglés a la vida real."
+          centered
+        />
+
+        <div className="mx-auto mt-10 max-w-5xl rounded-[22px] border border-[#C7D1DE]/20 bg-[#F2EEE6]/35 p-3 shadow-[0_8px_24px_rgba(6,31,73,0.03)] backdrop-blur sm:p-5">
+          <BrandTimeline items={history} />
+        </div>
+
+        <div className="mx-auto mt-12 max-w-4xl px-4 py-3 text-center">
+          <p className="text-2xl font-black leading-tight text-navy sm:text-4xl">
+            No volvemos para enseñar inglés como siempre.
+            <br />
+            <span className="mt-2 inline-block text-cobalt">Volvemos para ayudarte a vivirlo.</span>
+          </p>
         </div>
       </div>
     </section>
   )
 }
 
+function LiveEnglishMethod() {
+  return (
+    <div className="rounded-[26px] bg-gradient-to-b from-[#1E63F2] via-[#00AEEF] to-[#E7EEF7] p-px shadow-[0_14px_34px_rgba(11,29,61,0.032)] lg:max-w-[520px] lg:justify-self-end">
+      <div className="relative overflow-hidden rounded-[25px] bg-[#fbfaf6] p-5 md:p-6">
+        <div className="absolute -right-20 -top-24 h-48 w-48 rounded-full bg-[#00AEEF]/7 blur-3xl" />
+        <div className="absolute -bottom-28 left-4 h-40 w-40 rounded-full bg-[#1E63F2]/5 blur-3xl" />
+        <div className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-[#00AEEF]/38 to-transparent" />
+        <div className="relative">
+          <p className="text-xl font-black leading-tight text-navy sm:text-[25px]">El inglés se vive en movimiento.</p>
+          <p className="mt-2 max-w-md text-sm leading-6 text-ink/68">Practicar, conectar y vivir el idioma: tres movimientos para convertir el inglés en una experiencia real.</p>
+        </div>
+
+        <div className="relative mt-5 grid gap-1">
+          <div className="absolute left-[17px] top-6 hidden h-[calc(100%-3rem)] w-[2px] rounded-full bg-gradient-to-b from-cobalt/48 via-[#00AEEF]/34 to-cobalt/8 sm:block" />
+          {liveEnglishSteps.map(([title, text, Icon]) => (
+            <article key={title} className="relative grid gap-3 py-2.5 sm:grid-cols-[42px_1fr]">
+              <div className="flex items-start gap-4 sm:block">
+                <div className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#1E63F2]/18 bg-[#E7EEF7]/62 text-cobalt shadow-[0_6px_14px_rgba(30,99,242,0.05)] ring-[3px] ring-[#F2EEE6]/62 backdrop-blur">
+                  <Icon size={16} strokeWidth={2.2} />
+                </div>
+              </div>
+              <div className="border-b border-[#1E63F2]/12 pb-4 last:border-b-0">
+                <div className="flex items-baseline">
+                  <h3 className="text-xl font-black leading-tight text-navy">{title}</h3>
+                </div>
+                <p className="mt-2 text-[14px] leading-6 text-ink/72">{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="relative mt-4 flex flex-wrap items-center gap-2.5 border-t border-[#1E63F2]/14 pt-3 text-[13px] font900 text-navy/72">
+          <span>Constancia</span>
+          <ArrowRight size={15} className="text-cobalt" />
+          <span>Confianza</span>
+          <ArrowRight size={15} className="text-cobalt" />
+          <span>Mundo real</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function MethodSection() {
   return (
-    <section id="metodo" className="bg-pearl py-14">
+    <section id="metodo" className="bg-[#fbfaf6] py-16">
       <div className="mx-auto max-w-7xl px-5">
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[0.98fr_0.86fr] lg:items-center">
           <div>
             <SectionHeader
-              eyebrow="Qué es INGLESCO 2.0"
               title="De estudiar inglés a vivirlo."
-              text="Muchas personas han estudiado inglés durante años, pero no han tenido suficientes espacios para usarlo. INGLESCO 2.0 nace para cerrar esa brecha: convertir el idioma en una práctica constante, acompañada por profesores, reforzada con comunidad y conectada con situaciones reales de vida, trabajo, viajes e industrias."
+              text="Muchas personas han estudiado inglés durante años, pero nunca han tenido suficientes espacios para usarlo con confianza. INGLESCO 2.0 nace para cerrar esa brecha: convertir el idioma en una práctica constante, acompañada por clases, comunidad y situaciones reales."
             />
-            <p className="mt-5 leading-7 text-ink/75">La plataforma mantiene contacto frecuente con el inglés; las clases en línea refuerzan lo que se practica; los clubes crean espacios para hablar con más confianza; y la comunidad vuelve el aprendizaje más humano, social y constante.</p>
-            <div className="mt-7 grid gap-3 text-base font900 text-navy sm:grid-cols-2">
-              {[
-                'Practica constantemente en plataforma.',
-                'Refuerza tu avance con clases en línea.',
-                'Conversa en clubes y comunidad.',
-                'Aplica el inglés a viajes, trabajo e industrias.',
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3">
-                  <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-cobalt" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+            <p className="mt-5 leading-7 text-ink/75">Aquí el inglés deja de ser una materia aislada. Se vuelve parte de tu rutina, de tus conversaciones y de las oportunidades que quieres construir.</p>
+            <blockquote className="relative mt-8 max-w-xl py-4 pl-6 pr-4">
+              <span className="absolute bottom-3 left-0 top-3 w-[5px] rounded-full bg-gradient-to-b from-cobalt via-[#00AEEF] to-cobalt/35" />
+              <span className="absolute inset-y-0 left-0 w-32 rounded-r-[28px] bg-[#F2EEE6]/45" />
+              <p className="relative text-xl font-black leading-tight text-navy">No se trata de acumular lecciones.<br />Se trata de construir momentos reales para usar el idioma.</p>
+            </blockquote>
           </div>
-
-          <div>
-            <div className="rounded-lg bg-white p-4 shadow-soft sm:p-6">
-              <div className="rounded-lg bg-navy p-6 text-white">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="text-sm font900 uppercase tracking-[0.14em] text-sky">Tu semana en INGLESCO 2.0</p>
-                    <h3 className="mt-2 text-2xl font-black">Ritmo real de práctica</h3>
-                  </div>
-                  <Badge tone="blue">A2-B1</Badge>
-                </div>
-                <div className="mt-6 grid gap-3 sm:grid-cols-4">
-                  {weekStats.map(([value, label]) => (
-                    <div key={label} className="rounded-lg bg-white/10 p-4">
-                      <p className="text-3xl font-black text-white">{value}</p>
-                      <p className="mt-2 text-sm font800 leading-5 text-blue-100">{label}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {['Travel', 'Business', 'Logistics', 'Daily life'].map((item) => (
-                    <span key={item} className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font900 text-blue-100">{item}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-4 grid gap-3 sm:grid-cols-4">
-                {weekChips.map(([label, Icon]) => (
-                  <div key={label} className="rounded-lg bg-pearl p-4 text-center">
-                    <Icon size={22} className="mx-auto text-cobalt" />
-                    <p className="mt-3 text-sm font900 text-navy">{label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <p className="mt-5 text-xl font-black leading-tight text-cobalt">El objetivo no es solo estudiar inglés. Es usarlo, practicarlo y vivirlo.</p>
-          </div>
+          <LiveEnglishMethod />
         </div>
       </div>
     </section>
@@ -268,37 +254,40 @@ function MethodSection() {
 
 function ClubExperienceCards() {
   return (
-    <section id="clubes" className="bg-white py-14">
+    <section id="clubes" className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-5">
-        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
           <SectionHeader
-            eyebrow="Clubes y comunidad"
-            title="Hablar inglés necesita espacios reales."
-            text="INGLESCO 2.0 combina clubes en línea, encuentros presenciales y sesiones temáticas para que practicar se sienta natural, social y posible."
+            title="La confianza se construye conversando."
+            text="INGLESCO 2.0 crea espacios para practicar sin presión: clubes en línea, encuentros presenciales y sesiones temáticas donde hablar se vuelve más natural, social y constante."
           />
-          <div className="rounded-lg bg-navy p-6 text-white">
-            <UsersRound className="text-sky" size={28} />
-            <p className="mt-4 text-2xl font-black">Practicar, conectar y avanzar.</p>
-            <p className="mt-3 leading-7 text-blue-100">Una red de apoyo para conversar, compartir el proceso y acercarte a cultura internacional sin esperar a sentirte perfecto.</p>
+          <div className="relative overflow-hidden rounded-[26px] bg-navy px-6 py-7 text-white shadow-[0_18px_44px_rgba(11,29,61,0.16)]">
+            <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#00AEEF]/80 to-transparent" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#00AEEF]/24 bg-white/7 text-sky">
+              <UsersRound size={20} />
+            </div>
+            <p className="mt-6 text-2xl font-black leading-tight">La idea no es hablar perfecto desde el día uno.<br />La idea es tener un espacio donde empezar a hablar.</p>
+            <p className="mt-4 max-w-xl leading-7 text-blue-100">Por eso creamos espacios donde practicar se siente natural, acompañado y posible.</p>
           </div>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {clubTypes.map((club) => (
-            <article key={club.title} className="group overflow-hidden rounded-lg border border-line bg-white shadow-soft">
+            <article key={club.title} className="group overflow-hidden rounded-[22px] border border-[#1E63F2]/12 bg-white shadow-[0_10px_26px_rgba(11,29,61,0.04)] transition duration-300 hover:-translate-y-1 hover:border-[#1E63F2]/22 hover:shadow-[0_16px_38px_rgba(11,29,61,0.07)]">
               <div className="relative h-56 overflow-hidden">
-                <img src={club.image} alt={club.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                <div className="absolute left-4 top-4"><Badge>{club.tag}</Badge></div>
+                <img src={club.image} alt={club.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/24 via-transparent to-transparent" />
+                <div className="absolute left-4 top-4">
+                  <span className="rounded-full border border-[#1E63F2]/18 bg-white/90 px-3.5 py-1.5 text-xs font900 text-cobalt backdrop-blur">
+                    {club.tag}
+                  </span>
+                </div>
               </div>
               <div className="p-5">
-                <h3 className="text-xl font-black text-navy">{club.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-ink/70">{club.text}</p>
+                <h3 className="text-[21px] font-black leading-tight text-navy">{club.title}</h3>
+                <p className="mt-3 text-sm leading-[1.7] text-ink/70">{club.text}</p>
               </div>
             </article>
           ))}
-        </div>
-        <div className="mt-7 flex flex-col gap-5 rounded-lg bg-pearl p-6 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-2xl text-xl font-black leading-tight text-navy">La idea no es hablar perfecto desde el día uno. La idea es empezar a hablar.</p>
-          <StatChips items={communityItems} />
         </div>
       </div>
     </section>
@@ -315,15 +304,16 @@ function IndustryExplorer() {
       <div className="mx-auto max-w-7xl px-5">
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeader
-            eyebrow="Inglés aplicado"
             title="Inglés para lo que realmente necesitas."
-            text="El inglés no se usa igual en todos lados. INGLESCO 2.0 conecta la práctica del idioma con contextos reales, vocabulario útil y situaciones que el alumno puede vivir."
+            text="No todos necesitan inglés para lo mismo. INGLESCO 2.0 adapta la práctica a contextos reales: trabajo, viajes, entrevistas, industria, networking y vida diaria."
           />
-          <Button variant="secondary" onClick={() => goToSection('global')}>Ver proyección global <ArrowRight size={18} /></Button>
+          <Button variant="secondary" className="w-full sm:w-fit" onClick={() => goToSection('global')}>Ver INGLESCO Global <ArrowRight size={18} /></Button>
         </div>
 
-        <div className="grid overflow-hidden rounded-lg border border-line bg-white shadow-soft lg:grid-cols-[320px_1fr]">
-          <div className="border-b border-line bg-pearl p-4 lg:border-b-0 lg:border-r">
+        <div className="relative overflow-hidden rounded-[25px] border border-[#C7D1DE]/30 bg-white shadow-[0_18px_48px_rgba(11,29,61,0.06)]">
+          <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 w-[2px] bg-gradient-to-b from-[#1E63F2] via-[#00AEEF] to-[#E7EEF7]" />
+          <div className="grid overflow-hidden rounded-[24px] bg-white lg:grid-cols-[300px_1fr]">
+            <div className="border-b border-[#C7D1DE]/28 bg-[#F2EEE6]/45 p-4 lg:border-b-0 lg:border-r">
             <div className="flex gap-2 overflow-x-auto pb-2 lg:block lg:space-y-2 lg:overflow-visible lg:pb-0">
               {industries.map((item, index) => {
                 const Icon = item.icon
@@ -331,10 +321,10 @@ function IndustryExplorer() {
                 return (
                   <button
                     key={item.name}
-                    className={`flex min-w-fit items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font900 transition lg:w-full ${isActive ? 'bg-navy text-white shadow-soft' : 'bg-white text-ink/70 hover:bg-mist'}`}
+                    className={`flex min-w-fit items-center gap-3 rounded-[15px] border px-4 py-3 text-left text-sm font900 transition lg:w-full ${isActive ? 'border-cobalt/20 bg-navy text-white shadow-[0_12px_24px_rgba(11,29,61,0.14)]' : 'border-transparent bg-white/58 text-ink/70 hover:border-[#1E63F2]/14 hover:bg-white'}`}
                     onClick={() => setActiveIndustry(index)}
                   >
-                    <Icon size={18} className={isActive ? 'text-sky' : 'text-cobalt'} />
+                    <Icon size={16} strokeWidth={2.1} className={isActive ? 'text-sky' : 'text-cobalt/80'} />
                     {item.name}
                   </button>
                 )
@@ -342,33 +332,34 @@ function IndustryExplorer() {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
             <div className="p-6 sm:p-8">
               <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-blue-50 p-4 text-cobalt"><IndustryIcon size={30} /></div>
+                <div className="rounded-2xl border border-[#1E63F2]/12 bg-[#E7EEF7]/55 p-3 text-cobalt"><IndustryIcon size={24} strokeWidth={2.1} /></div>
                 <div>
                   <Badge>{industry.full}</Badge>
-                  <h3 className="mt-4 text-3xl font-black text-navy">{industry.name}</h3>
+                  <h3 className="mt-4 text-3xl font-black leading-tight text-navy">{industry.name}</h3>
                 </div>
               </div>
               <p className="mt-5 text-lg leading-8 text-ink/70">{industry.text}</p>
-              <div className="mt-6 space-y-3">
+              <div className="mt-6 space-y-2.5">
                 {industry.bullets.map((item) => (
-                  <div key={item} className="flex items-center gap-3 rounded-lg bg-pearl px-4 py-3">
-                    <CheckCircle2 size={18} className="text-cobalt" />
-                    <span className="font900 text-navy">{item}</span>
+                  <div key={item} className="flex items-center gap-3 rounded-[15px] border border-[#1E63F2]/10 bg-[#F2EEE6]/45 px-4 py-3">
+                    <CheckCircle2 size={17} className="text-cobalt" />
+                    <span className="font900 text-navy/92">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="relative min-h-[360px] overflow-hidden bg-navy">
-              <img src={industry.image} alt={industry.full} className="h-full min-h-[360px] w-full object-cover opacity-90" />
+              <img src={industry.image} alt={industry.full} loading="lazy" className="h-full min-h-[360px] w-full object-cover opacity-90" />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/75 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 rounded-lg bg-white/95 p-4">
-                <p className="text-sm font900 uppercase tracking-[0.14em] text-cobalt">Situaciones reales</p>
-                <p className="mt-2 text-lg font-black text-navy">{industry.bullets.join(' · ')}</p>
+              <div className="absolute bottom-5 left-5 right-5 rounded-[18px] border border-white/22 bg-navy/62 p-4 shadow-[0_18px_42px_rgba(11,29,61,0.22)] backdrop-blur-md">
+                <p className="text-xs font900 text-blue-100">Situaciones reales</p>
+                <p className="mt-2 text-lg font-black leading-tight text-white">{industry.bullets.join(' · ')}</p>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -377,14 +368,18 @@ function IndustryExplorer() {
 }
 
 function GlobalJourneySteps() {
+  const steps = ['Practica constantemente', 'Refuerza con clases y comunidad', 'Alcanza el nivel requerido', 'Valida tu preparación', 'Vive una experiencia internacional']
+
   return (
-    <div className="rounded-lg bg-white/10 p-5 backdrop-blur">
+    <div className="rounded-[28px] border border-[#E7EEF7]/12 bg-white/[0.07] p-5 backdrop-blur-md sm:p-6">
       <h3 className="text-2xl font-black">Tu camino hacia INGLESCO Global</h3>
-      <div className="mt-5 grid gap-3">
-        {['Practica constantemente', 'Refuerza con clases y clubes', 'Alcanza el nivel requerido', 'Valida tu preparación', 'Vive una experiencia internacional'].map((item, index) => (
-          <div key={item} className="flex items-center gap-4 rounded-lg bg-white/10 p-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cobalt font-black">{index + 1}</div>
-            <p className="font900">{item}</p>
+      <div className="relative mt-6 grid gap-3">
+        {steps.map((item, index) => (
+          <div key={item} className="relative grid gap-3 sm:grid-cols-[40px_1fr]">
+            <div className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E7EEF7]/35 bg-white/[0.055] text-xs font900 text-sky">
+              {index + 1}
+            </div>
+            <p className="self-center rounded-[14px] border border-[#E7EEF7]/35 bg-white/[0.03] px-4 py-2.5 font900 text-[#E7EEF7]">{item}</p>
           </div>
         ))}
       </div>
@@ -394,12 +389,15 @@ function GlobalJourneySteps() {
 
 function DestinationCards() {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-      {destinations.map(([city, image]) => (
-        <div key={city} className="relative h-32 overflow-hidden rounded-lg border border-white/10 bg-white/10 sm:h-40">
-          <img src={image} alt={city} className="h-full w-full object-cover opacity-80" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
-          <p className="absolute bottom-3 left-3 text-lg font-black text-white">{city}</p>
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+      {destinations.map(({ city, image, tag }) => (
+        <div key={city} className="group relative h-44 overflow-hidden rounded-[20px] border border-white/10 bg-white/10 sm:h-52 lg:col-span-2">
+          <img src={image} alt={city} loading="lazy" className="h-full w-full object-cover opacity-[0.88] transition duration-500 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/78 via-navy/10 to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4">
+            <p className="text-xl font-black leading-tight text-white">{city}</p>
+            <p className="mt-1 text-sm font700 text-[#E7EEF7]/72">{tag}</p>
+          </div>
         </div>
       ))}
     </div>
@@ -412,29 +410,29 @@ function GlobalSection() {
       <img
         src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1800&q=85"
         alt="Experiencia internacional"
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover opacity-20"
       />
       <div className="absolute inset-0 bg-navy/85" />
       <div className="relative mx-auto max-w-7xl px-5">
         <div className="grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
           <div>
-            <SectionHeader
-              eyebrow="INGLESCO Global"
-              title="Lleva tu inglés al mundo real."
-              text="INGLESCO Global es la extensión aspiracional de INGLESCO 2.0: una visión de experiencias, networking y práctica internacional para alumnos que avanzan con constancia, alcanzan el nivel necesario y validan su preparación."
-              light
-            />
-            <p className="mt-5 leading-7 text-blue-100">No se trata de una promesa inmediata. Es una meta que se construye con práctica, clases, clubes, comunidad y avance medible.</p>
-            <p className="mt-7 text-2xl font-black text-white">Primero construimos la confianza. Luego abrimos el mundo.</p>
+            <p className="inline-flex rounded-full border border-[#00AEEF]/22 bg-white/8 px-3 py-1 text-sm font900 text-sky">INGLESCO Global</p>
+            <h2 className="mt-4 max-w-3xl text-3xl font-black leading-tight text-white sm:text-5xl">Lleva tu inglés al mundo real.</h2>
+            <p className="mt-4 max-w-3xl leading-7 text-[#E7EEF7]/78">INGLESCO Global es la extensión internacional de INGLESCO 2.0: una visión de experiencias, networking y práctica internacional para alumnos que avanzan con constancia, alcanzan el nivel necesario y validan su preparación.</p>
+            <p className="mt-5 leading-7 text-[#E7EEF7]/78">No se trata de una promesa inmediata. Es una meta que se construye con práctica, clases, clubes, comunidad y avance medible.</p>
+            <p className="mt-7 max-w-2xl text-3xl font-black leading-tight">
+              <span className="text-sky">Primero construimos la confianza.</span>{' '}
+              <span className="text-white">Luego abrimos el mundo.</span>
+            </p>
           </div>
           <GlobalJourneySteps />
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
-          <div>
-            <p className="text-sm font900 uppercase tracking-[0.18em] text-sky">Visión internacional</p>
+        <div id="global-destinos" className="mt-16 scroll-mt-24">
+          <div className="mb-7 max-w-3xl">
             <h3 className="mt-3 text-3xl font-black leading-tight">Destinos que inspiran proyección global.</h3>
-            <p className="mt-4 leading-7 text-blue-100">Estas ciudades funcionan como referencia visual del tipo de entornos donde el inglés puede convertirse en experiencia real.</p>
+            <p className="mt-4 leading-7 text-[#E7EEF7]/78">Estos son algunos destinos donde alumnos preparados pueden llevar el inglés fuera del aula y practicarlo en experiencias reales.</p>
           </div>
           <DestinationCards />
         </div>
@@ -450,6 +448,7 @@ function FinalCTA({ onNavigate }) {
         <img
           src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1500&q=84"
           alt="Alumnos avanzando en comunidad"
+          loading="lazy"
           className="absolute inset-0 h-full w-full object-cover opacity-20"
         />
         <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -459,8 +458,8 @@ function FinalCTA({ onNavigate }) {
             <p className="mt-4 max-w-2xl leading-7 text-blue-100">Practica con constancia, refuerza con profesores, conversa con comunidad y prepara tu inglés para situaciones reales.</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-            <Button onClick={() => onNavigate('plans')}>Quiero empezar <ArrowRight size={18} /></Button>
-            <Button variant="secondary" onClick={() => onNavigate('plans')}>Ver planes</Button>
+            <Button onClick={() => onNavigate('plans')} className="w-full sm:w-auto lg:w-full">Quiero empezar <ArrowRight size={18} /></Button>
+            <Button variant="secondary" onClick={() => onNavigate('plans')} className="w-full sm:w-auto lg:w-full">Ver planes</Button>
           </div>
         </div>
       </Card>
@@ -469,6 +468,17 @@ function FinalCTA({ onNavigate }) {
 }
 
 export function LandingPage({ onNavigate }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+  const goToMobileSection = (id) => {
+    closeMobileMenu()
+    goToSection(id)
+  }
+  const goToPlans = () => {
+    closeMobileMenu()
+    onNavigate('plans')
+  }
+
   return (
     <main className="overflow-x-hidden pb-28 sm:pb-20">
       <header className="sticky top-0 z-40 border-b border-line bg-ivory/90 backdrop-blur">
@@ -483,8 +493,41 @@ export function LandingPage({ onNavigate }) {
             <a href="#global">Global</a>
             <button className="font800 text-ink/70" onClick={() => onNavigate('plans')}>Inscripción</button>
           </nav>
-          <Button onClick={() => onNavigate('plans')} className="hidden sm:inline-flex">Quiero inscribirme</Button>
+          <Button onClick={() => onNavigate('plans')} className="hidden lg:inline-flex">Quiero inscribirme</Button>
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[#C7D1DE]/60 bg-white text-navy shadow-[0_8px_18px_rgba(11,29,61,0.06)] lg:hidden"
+            aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
+        {mobileMenuOpen && (
+          <div className="border-t border-line bg-ivory px-5 py-4 shadow-[0_18px_40px_rgba(11,29,61,0.08)] lg:hidden">
+            <nav className="mx-auto grid max-w-7xl gap-2 text-sm font900 text-navy">
+              {[
+                ['Inicio', 'inicio'],
+                ['Historia', 'historia'],
+                ['MÃ©todo', 'metodo'],
+                ['Clubes', 'clubes'],
+                ['Industrias', 'industrias'],
+                ['Global', 'global'],
+              ].map(([label, id]) => (
+                <button
+                  key={id}
+                  type="button"
+                  className="min-h-11 rounded-lg px-3 text-left transition hover:bg-[#E7EEF7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt"
+                  onClick={() => goToMobileSection(id)}
+                >
+                  {label}
+                </button>
+              ))}
+              <Button onClick={goToPlans} className="mt-2 min-h-11 w-full">Quiero inscribirme</Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       <section id="inicio" className="relative min-h-[100svh] overflow-hidden bg-navy text-white lg:min-h-[720px]">
@@ -514,7 +557,7 @@ export function LandingPage({ onNavigate }) {
               </button>
             </div>
           </div>
-          <div className="w-full max-w-[680px] lg:justify-self-end">
+          <div className="w-full min-w-0 max-w-full lg:max-w-[680px] lg:justify-self-end">
             <HeroAccordion />
           </div>
         </div>
@@ -522,20 +565,6 @@ export function LandingPage({ onNavigate }) {
 
       <HistorySection />
       <MethodSection />
-
-      <section className="bg-navy py-10 text-white">
-        <div className="mx-auto max-w-7xl px-5">
-          <div className="grid gap-4 md:grid-cols-5">
-            {methodSteps.map(([title, text], index) => (
-              <div key={title} className="rounded-lg bg-white/10 p-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cobalt text-sm font-black">{index + 1}</div>
-                <h3 className="mt-5 text-lg font-black">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-blue-100">{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <ClubExperienceCards />
       <IndustryExplorer />
