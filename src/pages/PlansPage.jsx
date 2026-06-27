@@ -1,31 +1,10 @@
 import React from 'react'
 import { ArrowLeft, CheckCircle2, Send } from 'lucide-react'
 import { Logo } from '../assets/logo.jsx'
-import { Badge, Button, Card, SectionTitle } from '../components/ui.jsx'
+import { PricingSection } from '../components/PricingSection.jsx'
+import { Badge, Button, Card } from '../components/ui.jsx'
 
-const plans = [
-  {
-    name: 'Starter',
-    price: '$29',
-    tag: 'Preventa',
-    description: 'Para empezar a practicar con constancia y entrar a la comunidad.',
-    features: ['Plataforma de práctica', 'Recursos por nivel', 'Club de conversación mensual', 'Seguimiento básico'],
-  },
-  {
-    name: 'Growth',
-    price: '$59',
-    tag: 'Más elegido',
-    description: 'Para combinar práctica, clases en línea y conversación frecuente.',
-    features: ['Plataforma de práctica', 'Clases en línea semanales', 'Clubes de conversación', 'Progreso guiado'],
-  },
-  {
-    name: 'Global',
-    price: '$89',
-    tag: 'Experiencia completa',
-    description: 'Para avanzar con refuerzo, clubes temáticos e inglés aplicado.',
-    features: ['Clases semanales + mentoría', 'Clubes temáticos', 'Inglés por industria', 'Prevalidación Global'],
-  },
-]
+const planOptions = ['Starter', 'Global']
 
 const industries = [
   'Logística / comercio exterior',
@@ -51,33 +30,7 @@ export function PlansPage({ onNavigate }) {
         </div>
       </header>
 
-      <section className="mx-auto max-w-7xl px-5 py-14">
-        <SectionTitle
-          centered
-          eyebrow="Inscripción"
-          title="Elige cómo empezar tu experiencia INGLESCO"
-          text="Selecciona una opción y deja tus datos para que un asesor de INGLESCO confirme tu inscripción."
-        />
-
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {plans.map((plan) => (
-            <Card key={plan.name} className={`p-6 ${plan.name === 'Growth' ? 'border-cobalt ring-2 ring-blue-100' : ''}`}>
-              <Badge tone={plan.name === 'Growth' ? 'navy' : 'blue'}>{plan.tag}</Badge>
-              <h2 className="mt-5 text-2xl font-black text-navy">{plan.name}</h2>
-              <p className="mt-3 text-sm leading-6 text-ink/65">{plan.description}</p>
-              <p className="mt-5 text-4xl font-black text-cobalt">{plan.price}<span className="text-base text-ink/60">/mes</span></p>
-              <div className="mt-6 space-y-3">
-                {plan.features.map((feature) => (
-                  <p key={feature} className="flex items-center gap-2 text-sm text-ink/75">
-                    <CheckCircle2 size={17} className="text-cobalt" />
-                    {feature}
-                  </p>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
+      <PricingSection onNavigate={onNavigate} />
 
       <section className="mx-auto grid max-w-7xl gap-8 px-5 pb-16 lg:grid-cols-[0.85fr_1.15fr]">
         <Card className="bg-navy p-8 text-white">
@@ -104,7 +57,7 @@ export function PlansPage({ onNavigate }) {
             <Select label="Nivel actual" options={levels} />
             <Field label="Objetivo principal" placeholder="Trabajo, viajes, estudios..." className="sm:col-span-2" />
             <Select label="Industria o contexto de interés" options={industries} />
-            <Select label="Plan de interés" options={plans.map((plan) => plan.name)} />
+            <Select label="Plan de interés" options={planOptions} />
           </form>
 
           <Button className="mt-6 w-full"><Send size={17} /> Enviar solicitud</Button>

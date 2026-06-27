@@ -74,7 +74,8 @@ const industries = [
   {
     name: 'Logística',
     full: 'Logística y comercio exterior',
-    text: 'Practica vocabulario y situaciones relacionadas con envíos, proveedores, rutas, operaciones y coordinación internacional.',
+    text: 'Practica el inglés que necesitas para coordinar operaciones, comunicarte con proveedores y resolver situaciones reales dentro de cadenas de suministro, rutas y comercio exterior.',
+    focus: ['Vocabulario operativo', 'Comunicación con proveedores', 'Claridad en coordinación'],
     bullets: ['Coordinar un envío', 'Confirmar tiempos de entrega', 'Explicar un retraso'],
     image: 'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1200&q=84',
     icon: Factory,
@@ -82,7 +83,8 @@ const industries = [
   {
     name: 'Automotriz',
     full: 'Automotriz',
-    text: 'Comunica procesos, calidad, producción, mantenimiento y soporte técnico con vocabulario útil para planta o ingeniería.',
+    text: 'Desarrolla vocabulario y confianza para comunicarte en planta, explicar procesos, hablar de calidad y colaborar con equipos técnicos o de ingeniería.',
+    focus: ['Vocabulario técnico útil', 'Comunicación en planta', 'Confianza en producción'],
     bullets: ['Describir procesos', 'Reportar incidencias', 'Hablar de calidad'],
     image: 'https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf?auto=format&fit=crop&w=1200&q=84',
     icon: Car,
@@ -90,48 +92,54 @@ const industries = [
   {
     name: 'Medicina',
     full: 'Medicina y salud',
-    text: 'Refuerza vocabulario clínico, atención, síntomas, protocolos y comunicación profesional con pacientes o equipos.',
-    bullets: ['Explicar síntomas', 'Dar seguimiento', 'Comunicar indicaciones'],
+    text: 'Practica inglés para comunicar síntomas, explicar procedimientos, comprender indicaciones y desenvolverte con mayor seguridad en contextos clínicos o académicos.',
+    focus: ['Comunicación clínica', 'Vocabulario médico esencial', 'Claridad con pacientes o colegas'],
+    bullets: ['Explicar síntomas', 'Dar indicaciones', 'Comprender un caso clínico'],
     image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=84',
     icon: HeartPulse,
   },
   {
     name: 'Negocios',
     full: 'Negocios',
-    text: 'Practica presentaciones, reuniones, negociaciones, networking y conversación profesional con mayor seguridad.',
-    bullets: ['Presentar ideas', 'Negociar acuerdos', 'Participar en reuniones'],
+    text: 'Fortalece tu inglés para presentar ideas, participar en reuniones, negociar con mayor claridad y comunicar propuestas en ambientes profesionales.',
+    focus: ['Comunicación profesional', 'Presentaciones claras', 'Seguridad en reuniones'],
+    bullets: ['Presentar una idea', 'Negociar condiciones', 'Participar en una reunión'],
     image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=84',
     icon: BriefcaseBusiness,
   },
   {
     name: 'Viajes',
     full: 'Viajes y hospitalidad',
-    text: 'Muévete con confianza en aeropuertos, hoteles, tours, restaurantes y situaciones comunes de viaje.',
-    bullets: ['Resolver en aeropuerto', 'Pedir apoyo en hotel', 'Conversar en tours'],
+    text: 'Gana confianza para moverte, preguntar, resolver imprevistos y disfrutar experiencias internacionales sin depender siempre de traducciones.',
+    focus: ['Inglés para moverte', 'Seguridad al viajar', 'Resolución de imprevistos'],
+    bullets: ['Pedir indicaciones', 'Resolver un problema', 'Hacer check-in'],
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=84',
     icon: Hotel,
   },
   {
     name: 'Entrevistas',
     full: 'Entrevistas laborales',
-    text: 'Habla de tu perfil, experiencia, logros y objetivos con estructura, claridad y vocabulario profesional.',
-    bullets: ['Presentar tu perfil', 'Responder preguntas', 'Explicar logros'],
+    text: 'Prepárate para responder con claridad, hablar de tu experiencia y transmitir seguridad en entrevistas académicas, laborales o migratorias.',
+    focus: ['Respuestas con estructura', 'Seguridad al hablar', 'Vocabulario profesional'],
+    bullets: ['Hablar de tu experiencia', 'Responder preguntas', 'Explicar tus objetivos'],
     image: 'https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=1200&q=84',
     icon: BadgeCheck,
   },
   {
     name: 'Vida diaria',
     full: 'Vida diaria en otro país',
-    text: 'Practica conversaciones cotidianas para resolver compras, traslados, servicios y momentos sociales.',
-    bullets: ['Pedir direcciones', 'Comprar y ordenar', 'Resolver imprevistos'],
+    text: 'Convierte el inglés en parte de tu rutina para comunicarte en conversaciones cotidianas, compras, servicios, mensajes y situaciones del día a día.',
+    focus: ['Conversación cotidiana', 'Vocabulario práctico', 'Confianza diaria'],
+    bullets: ['Pedir algo', 'Hacer una compra', 'Resolver una duda'],
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=84',
     icon: Globe2,
   },
   {
     name: 'Networking',
     full: 'Conversación social y networking',
-    text: 'Conecta social y profesionalmente con más confianza en eventos, comunidades y espacios internacionales.',
-    bullets: ['Iniciar conversación', 'Hablar de proyectos', 'Dar seguimiento'],
+    text: 'Practica inglés para conectar con personas, presentarte con claridad, iniciar conversaciones y construir relaciones en ambientes internacionales.',
+    focus: ['Presentación personal', 'Conversaciones naturales', 'Conexión profesional'],
+    bullets: ['Presentarte', 'Iniciar una conversación', 'Dar seguimiento'],
     image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=84',
     icon: Building2,
   },
@@ -162,21 +170,29 @@ function SectionHeader({ eyebrow, title, text, centered = false, light = false }
 
 function HistorySection() {
   return (
-    <section id="historia" className="bg-[#F2EEE6] py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-5">
-        <SectionHeader
-          title="Una historia que vuelve a evolucionar."
-          text="Lo que empezó como una escuela temática hoy evoluciona en una plataforma para practicar, conectar y llevar el inglés a la vida real."
-          centered
-        />
+    <section id="historia" className="relative overflow-hidden bg-[#F2EEE6] py-16 sm:py-20">
+      <div className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full bg-[#00AEEF]/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-10 hidden h-[520px] w-[42vw] rounded-l-[80px] bg-gradient-to-br from-white/42 via-[#E7EEF7]/35 to-transparent md:block" />
+      <div className="pointer-events-none absolute bottom-10 right-14 hidden h-28 w-28 rounded-[34px] border border-cobalt/10 md:block" />
 
-        <div className="mx-auto mt-10 max-w-5xl rounded-[22px] border border-[#C7D1DE]/20 bg-[#F2EEE6]/35 p-3 shadow-[0_8px_24px_rgba(6,31,73,0.03)] backdrop-blur sm:p-5">
+      <div className="relative mx-auto max-w-7xl px-5">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-black leading-tight text-navy sm:text-4xl">
+            Una historia que vuelve a evolucionar.
+          </h2>
+          <p className="mt-4 text-base leading-7 text-ink/75">
+            Lo que empezó como una escuela temática hoy evoluciona en una plataforma para practicar, conectar y llevar el inglés a la vida real.
+          </p>
+        </div>
+
+        <div className="relative mx-auto mt-12 max-w-6xl px-1 py-4 sm:px-4 sm:py-7 lg:px-6">
+          <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#00AEEF]/45 to-transparent" />
           <BrandTimeline items={history} />
         </div>
 
-        <div className="mx-auto mt-12 max-w-4xl px-4 py-3 text-center">
+        <div className="mx-auto mt-12 max-w-4xl border-l-[3px] border-cobalt px-5 py-2 sm:px-7">
           <p className="text-2xl font-black leading-tight text-navy sm:text-4xl">
-            No volvemos para enseñar inglés como siempre.
+            No volvemos para enseñarte inglés como siempre.
             <br />
             <span className="mt-2 inline-block text-cobalt">Volvemos para ayudarte a vivirlo.</span>
           </p>
@@ -314,25 +330,35 @@ function IndustryExplorer() {
           <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 w-[2px] bg-gradient-to-b from-[#1E63F2] via-[#00AEEF] to-[#E7EEF7]" />
           <div className="grid min-w-0 rounded-[24px] bg-white lg:grid-cols-[300px_1fr]">
             <div className="min-w-0 border-b border-[#C7D1DE]/28 bg-[#F2EEE6]/45 p-4 lg:border-b-0 lg:border-r">
-            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:block lg:space-y-2 lg:overflow-visible lg:px-0 lg:pb-0">
-              {industries.map((item, index) => {
-                const Icon = item.icon
-                const isActive = index === activeIndustry
-                return (
-                  <button
-                    key={item.name}
-                    className={`flex min-h-11 min-w-fit shrink-0 items-center gap-3 whitespace-nowrap rounded-[15px] border px-4 py-3 text-left text-sm font900 transition lg:w-full ${isActive ? 'border-cobalt/20 bg-navy text-white shadow-[0_12px_24px_rgba(11,29,61,0.14)]' : 'border-transparent bg-white/58 text-ink/70 hover:border-[#1E63F2]/14 hover:bg-white'}`}
-                    onClick={() => setActiveIndustry(index)}
-                  >
-                    <Icon size={16} strokeWidth={2.1} className={isActive ? 'text-sky' : 'text-cobalt/80'} />
-                    {item.name}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
+              <div className="mb-3 flex items-end justify-between gap-4 lg:hidden">
+                <div>
+                  <p className="text-sm font900 text-navy">Elige tu contexto</p>
+                  <p className="mt-1 text-xs font900 text-cobalt/72">Desliza y elige tu industria →</p>
+                </div>
+              </div>
 
-            <div className="grid min-w-0 lg:grid-cols-[0.95fr_1.05fr]">
+              <div className="relative -mx-4 lg:mx-0">
+                <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:block lg:space-y-2 lg:overflow-visible lg:px-0 lg:pb-0">
+                  {industries.map((item, index) => {
+                    const Icon = item.icon
+                    const isActive = index === activeIndustry
+                    return (
+                      <button
+                        key={item.name}
+                        className={`flex min-h-12 min-w-fit shrink-0 snap-start items-center gap-3 whitespace-nowrap rounded-[15px] border px-4 py-3 text-left text-sm font900 transition lg:min-h-11 lg:w-full ${isActive ? 'border-cobalt/20 bg-navy text-white shadow-[0_12px_24px_rgba(11,29,61,0.14)]' : 'border-[#C7D1DE]/28 bg-white/72 text-ink/72 hover:border-[#1E63F2]/14 hover:bg-white'}`}
+                        onClick={() => setActiveIndustry(index)}
+                      >
+                        <Icon size={16} strokeWidth={2.1} className={isActive ? 'text-sky' : 'text-cobalt/80'} />
+                        {item.name}
+                      </button>
+                    )
+                  })}
+                </div>
+                <div className="pointer-events-none absolute bottom-3 right-0 top-0 w-10 bg-gradient-to-l from-[#F2EEE6] via-[#F2EEE6]/82 to-transparent lg:hidden" />
+              </div>
+            </div>
+
+            <div className="grid min-w-0 pt-2 lg:grid-cols-[0.95fr_1.05fr] lg:pt-0">
             <div className="min-w-0 p-5 sm:p-8">
               <div className="flex items-start gap-4">
                 <div className="rounded-2xl border border-[#1E63F2]/12 bg-[#E7EEF7]/55 p-3 text-cobalt"><IndustryIcon size={24} strokeWidth={2.1} /></div>
@@ -343,7 +369,7 @@ function IndustryExplorer() {
               </div>
               <p className="mt-5 text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{industry.text}</p>
               <div className="mt-6 space-y-2.5">
-                {industry.bullets.map((item) => (
+                {industry.focus.map((item) => (
                   <div key={item} className="flex items-start gap-3 rounded-[15px] border border-[#1E63F2]/10 bg-[#F2EEE6]/45 px-4 py-3">
                     <CheckCircle2 size={17} className="text-cobalt" />
                     <span className="min-w-0 break-words font900 leading-6 text-navy/92">{item}</span>
@@ -354,9 +380,9 @@ function IndustryExplorer() {
             <div className="relative min-h-[240px] overflow-hidden bg-navy sm:min-h-[280px] lg:min-h-[360px]">
               <img src={industry.image} alt={industry.full} loading="lazy" className="h-full min-h-[240px] w-full object-cover object-center opacity-90 sm:min-h-[280px] lg:min-h-[360px]" />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/75 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 rounded-[18px] border border-white/22 bg-navy/62 p-4 shadow-[0_18px_42px_rgba(11,29,61,0.22)] backdrop-blur-md sm:bottom-5 sm:left-5 sm:right-5">
-                <p className="text-xs font900 text-blue-100">Situaciones reales</p>
-                <p className="mt-2 break-words text-base font-black leading-tight text-white sm:text-lg">{industry.bullets.join(' · ')}</p>
+              <div className="absolute bottom-4 left-4 right-4 rounded-[16px] border border-white/22 bg-navy/62 p-3 shadow-[0_18px_42px_rgba(11,29,61,0.22)] backdrop-blur-md sm:bottom-5 sm:left-5 sm:right-5 sm:rounded-[18px] sm:p-4">
+                <p className="text-[11px] font900 text-blue-100 sm:text-xs">Situaciones reales</p>
+                <p className="mt-1.5 break-words text-sm font-black leading-snug text-white sm:mt-2 sm:text-lg sm:leading-tight">{industry.bullets.join(' · ')}</p>
               </div>
             </div>
           </div>
