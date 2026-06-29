@@ -1,202 +1,419 @@
-import React, { useState } from 'react'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
-import { Badge, Button } from './ui.jsx'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { ArrowRight, CheckCircle2, Sparkles, X } from 'lucide-react'
+import { Button } from './ui.jsx'
+import { CURRENCIES, PRICING, VALID_AMBASSADOR_CODE, buildCheckoutDraft, formatPrice, getPrices } from '../data/pricing.js'
 
-const pricingPlans = [
-  {
-    name: 'Starter',
-    description: 'Ideal para empezar a vivir el inglés con una ruta accesible, práctica y acompañada.',
-    monthly: 39,
-    activation: {
-      normal: 25,
-      invited: 19,
-      savings: 6,
-    },
-    cta: 'Quiero empezar',
-    disclaimer: 'La experiencia internacional está sujeta a avance, nivel requerido, validación académica y disponibilidad.',
-    features: [
-      '3 horas de clases en vivo a la semana',
-      'Plataforma INGLESCO 2.0 24/7',
-      'Práctica con inteligencia artificial',
-      'Comunidad internacional online',
-      'Clubes de conversación',
-      'Materiales digitales',
-      'Seguimiento de avance',
-      'Ruta de preparación para experiencia internacional de 2 semanas',
-    ],
-  },
-  {
-    name: 'Global',
-    description: 'Diseñado para avanzar más rápido y usar el inglés como herramienta real para trabajar, viajar, conectar y acceder a oportunidades globales.',
-    monthly: 59,
-    activation: {
-      normal: 51,
-      invited: 39,
-      savings: 12,
-    },
-    cta: 'Quiero ir global',
-    recommended: true,
-    disclaimer: 'Las experiencias internacionales están sujetas a avance, nivel requerido, validación académica, perfil del alumno y disponibilidad.',
-    features: [
-      'Todo lo del Plan Starter',
-      '6 horas de clases en vivo a la semana',
-      'Mayor acompañamiento académico',
-      'Acceso prioritario a clubes de conversación',
-      'Talleres de empleabilidad internacional',
-      'Preparación para entrevistas en inglés',
-      'Networking internacional guiado',
-      'Orientación para voluntariados, prácticas y experiencias globales',
-      'Ruta prioritaria para experiencias internacionales de 2 a 8 semanas',
-    ],
-  },
-]
+const CONFETTI_COLORS = ['#00AEEF', '#1E63F2', '#6E8B58', '#CB6C3A', '#F2EEE6']
+const CONFETTI_PIECES = Array.from({ length: 28 }, (_, index) => ({
+  left: 8 + ((index * 13) % 84),
+  delay: (index % 8) * 0.055,
+  duration: 1.15 + (index % 5) * 0.12,
+  rotate: (index * 37) % 180,
+  drift: ((index % 7) - 3) * 22,
+  color: CONFETTI_COLORS[index % CONFETTI_COLORS.length],
+}))
 
-export function PricingSection({ onNavigate }) {
-  const [pricingMode, setPricingMode] = useState('invited')
-  const isInvited = pricingMode === 'invited'
+export function PricingSection({ onSummaryChange, onCheckoutNavigate }) {
+  const [selectedCurrency, setSelectedCurrency] = useState('USD')
+  const [draftCode, setDraftCode] = useState('')
+  const [appliedCode, setAppliedCode] = useState('')
+  const [codeError, setCodeError] = useState('')
+  const [codeSuccess, setCodeSuccess] = useState('')
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [selectedPlanId, setSelectedPlanId] = useState('starter')
+  const [visiblePlanId, setVisiblePlanId] = useState('starter')
+  const [hasUserSelectedPlan, setHasUserSelectedPlan] = useState(false)
+  const carouselRef = useRef(null)
+  const confettiTimeoutRef = useRef(null)
+  const isAmbassadorApplied = appliedCode.length > 0
+  const selectedPlan = PRICING.find((plan) => plan.id === selectedPlanId) || PRICING[0]
+  const selectedPrices = getPrices(selectedPlan, selectedCurrency, isAmbassadorApplied)
+
+  const summary = useMemo(() => ({
+    plan: selectedPlan.name,
+    currency: selectedCurrency,
+    priceType: isAmbassadorApplied ? 'Embajador' : 'Normal',
+    monthly: formatPrice(selectedPrices.monthly, selectedCurrency),
+    activation: formatPrice(selectedPrices.activation, selectedCurrency),
+    code: appliedCode,
+  }), [appliedCode, isAmbassadorApplied, selectedCurrency, selectedPlan.name, selectedPrices.activation, selectedPrices.monthly])
+
+  useEffect(() => {
+    onSummaryChange?.(summary)
+  }, [onSummaryChange, summary])
+
+  useEffect(() => () => {
+    if (confettiTimeoutRef.current) window.clearTimeout(confettiTimeoutRef.current)
+  }, [])
+
+  const triggerConfetti = () => {
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
+    if (confettiTimeoutRef.current) window.clearTimeout(confettiTimeoutRef.current)
+    setShowConfetti(true)
+    confettiTimeoutRef.current = window.setTimeout(() => setShowConfetti(false), 1700)
+  }
+
+  const applyCode = () => {
+    const nextCode = draftCode.trim().toUpperCase()
+    if (nextCode === VALID_AMBASSADOR_CODE) {
+      const shouldCelebrate = appliedCode !== VALID_AMBASSADOR_CODE
+      setAppliedCode(VALID_AMBASSADOR_CODE)
+      setDraftCode(VALID_AMBASSADOR_CODE)
+      setCodeError('')
+      setCodeSuccess('Código JPABLO20 aplicado correctamente.')
+      if (shouldCelebrate) triggerConfetti()
+      return
+    }
+
+    setAppliedCode('')
+    setCodeSuccess('')
+    setCodeError('Código no válido. Revisa tu código de embajador.')
+  }
+
+  const removeCode = () => {
+    setAppliedCode('')
+    setDraftCode('')
+    setCodeError('')
+    setCodeSuccess('')
+  }
+
+  const selectPlan = (planId) => {
+    setSelectedPlanId(planId)
+    setVisiblePlanId(planId)
+    setHasUserSelectedPlan(true)
+    const draft = buildCheckoutDraft({ planId, currency: selectedCurrency, code: appliedCode })
+    window.localStorage?.setItem('inglescoCheckoutDraft', JSON.stringify(draft))
+    onCheckoutNavigate?.(draft)
+  }
+
+  const scrollToPlan = (planId) => {
+    const carousel = carouselRef.current
+    const target = carousel?.querySelector(`[data-plan-id="${planId}"]`)
+    if (!carousel || !target) return
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    setVisiblePlanId(planId)
+  }
+
+  const handleCarouselScroll = () => {
+    const carousel = carouselRef.current
+    if (!carousel) return
+
+    const cards = Array.from(carousel.querySelectorAll('[data-plan-id]'))
+    const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2
+    const closest = cards.reduce((current, card) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2
+      const distance = Math.abs(cardCenter - carouselCenter)
+      return distance < current.distance ? { id: card.dataset.planId, distance } : current
+    }, { id: visiblePlanId, distance: Number.POSITIVE_INFINITY })
+
+    if (closest.id && closest.id !== visiblePlanId) setVisiblePlanId(closest.id)
+  }
 
   return (
-    <section id="pricing" className="relative overflow-hidden bg-[#F2EEE6] py-16 sm:py-20">
-      <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-[#00AEEF]/10 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[38vw] bg-gradient-to-l from-[#E7EEF7]/52 to-transparent lg:block" />
+    <section id="pricing" className="relative overflow-x-hidden overflow-y-visible bg-navy pt-16 pb-[calc(11rem+env(safe-area-inset-bottom))] text-white sm:pt-20 sm:pb-48">
+      {showConfetti && <ConfettiBurst />}
+      <div className="pricing-particles pointer-events-none absolute inset-0" />
+      <div className="pointer-events-none absolute -left-32 top-12 h-96 w-96 rounded-full bg-[#1E63F2]/20 blur-3xl" />
+      <div className="pointer-events-none absolute right-[-10%] top-20 h-[520px] w-[520px] rounded-full bg-[#00AEEF]/12 blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(30,99,242,0.22),transparent_44%),linear-gradient(180deg,rgba(11,29,61,0.12),rgba(11,29,61,0.96))]" />
 
       <div className="relative mx-auto max-w-7xl px-5">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-black leading-tight text-navy sm:text-5xl">
-            Elige cómo quieres vivir el inglés.
+          <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">
+            Elige tu plan INGLESCO 2.0
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-ink/74">
-            Dos planes claros para practicar, avanzar y construir tu camino hacia experiencias reales con INGLESCO 2.0.
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#E7EEF7]/82">
+            Aprende inglés con clases en vivo, plataforma 24/7, práctica con IA y una ruta real hacia experiencias internacionales.
           </p>
         </div>
 
-        <div className="mx-auto mt-8 max-w-2xl rounded-[24px] border border-[#C7D1DE]/34 bg-white/68 p-3 shadow-[0_16px_42px_rgba(11,29,61,0.055)] backdrop-blur">
-          <div className="grid gap-2 rounded-[18px] bg-[#E7EEF7]/54 p-1.5 sm:grid-cols-2">
-            {[
-              ['normal', 'Normal'],
-              ['invited', 'Invitado -30% activación'],
-            ].map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                className={`min-h-11 rounded-[14px] px-4 py-2 text-sm font900 transition ${
-                  pricingMode === value
-                    ? 'bg-navy text-white shadow-[0_12px_24px_rgba(11,29,61,0.16)]'
-                    : 'text-ink/66 hover:bg-white/72 hover:text-navy'
-                }`}
-                onClick={() => setPricingMode(value)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+        <div className="mx-auto mt-7 max-w-5xl rounded-[24px] border border-[#C7D1DE]/16 bg-[#123A8F]/18 p-4 shadow-[0_18px_56px_rgba(0,0,0,0.14)] backdrop-blur-xl">
+          <div className="grid gap-4 lg:grid-cols-[1fr_260px] lg:items-center">
+            <div>
+              <div>
+                <p className="text-lg font-black text-white">¿Tienes código de embajador?</p>
+                <p className="mt-1 text-sm leading-6 text-[#E7EEF7]/74">
+                  Desbloquea 30% menos en mensualidad y activación.
+                </p>
+              </div>
 
-          {isInvited && (
-            <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-center">
-              <label className="block">
-                <span className="sr-only">Código de embajador</span>
-                <input
-                  className="h-12 w-full rounded-[14px] border border-[#C7D1DE]/55 bg-[#fbfaf6] px-4 text-sm font900 text-navy outline-none transition placeholder:text-ink/38 focus:border-cobalt"
-                  placeholder="Código de embajador"
-                />
-              </label>
-              <p className="text-xs font900 leading-5 text-ink/58 sm:max-w-[240px]">
-                Este precio se activa con un código válido de embajador INGLESCO 2.0.
+              <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+                <label className="block">
+                  <span className="sr-only">Ingresa tu código</span>
+                  <input
+                    value={draftCode}
+                    onChange={(event) => setDraftCode(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') {
+                        event.preventDefault()
+                        applyCode()
+                      }
+                    }}
+                    className="h-12 w-full rounded-[15px] border border-[#C7D1DE]/35 bg-[#0B1D3D]/55 px-4 text-sm font900 uppercase text-[#F2EEE6] outline-none transition placeholder:normal-case placeholder:text-[#C7D1DE]/65 focus:border-sky focus:ring-4 focus:ring-sky/10"
+                    placeholder="Ingresa tu código"
+                  />
+                </label>
+                <div className="grid gap-2 sm:grid-cols-[auto_auto]">
+                  <button
+                    type="button"
+                    className="inline-flex h-12 items-center justify-center rounded-[15px] bg-sky px-5 text-sm font900 text-navy transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky"
+                    onClick={applyCode}
+                  >
+                    {isAmbassadorApplied ? 'Cambiar' : 'Aplicar'}
+                  </button>
+                  {isAmbassadorApplied && (
+                    <button
+                      type="button"
+                      className="inline-flex h-12 items-center justify-center gap-2 rounded-[15px] border border-[#C7D1DE]/16 bg-[#E7EEF7]/[0.07] px-4 text-sm font900 text-[#C7D1DE] transition hover:bg-white/[0.1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky"
+                      onClick={removeCode}
+                    >
+                      <X size={16} /> Quitar código
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+                <span className={`font900 ${isAmbassadorApplied ? 'text-sky' : 'text-[#E7EEF7]'}`}>
+                  Tarifa actual: {isAmbassadorApplied ? 'Embajador' : 'Normal'}
+                </span>
+                <span className="text-[#E7EEF7]/38">|</span>
+                <span className="text-[#E7EEF7]/70">
+                  {isAmbassadorApplied ? `Código aplicado: ${appliedCode}` : 'Aplica tu código de embajador para desbloquear la tarifa preferencial.'}
+                </span>
+              </div>
+              {(codeError || codeSuccess) && (
+                <p className={`mt-2 text-sm font900 leading-5 ${codeError ? 'text-[#CB6C3A]' : 'text-[#00AEEF]'}`}>
+                  {codeError || codeSuccess}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <p className="text-sm font900 text-[#E7EEF7]">Moneda</p>
+              <div className="mt-2 grid grid-cols-2 rounded-[16px] bg-[#0B1D3D]/42 p-1">
+                {CURRENCIES.map((currency) => (
+                  <button
+                    key={currency}
+                    type="button"
+                    className={`min-h-11 rounded-[13px] px-4 text-sm font900 transition ${
+                      selectedCurrency === currency
+                        ? 'bg-[#F2EEE6] text-navy shadow-[0_12px_24px_rgba(0,0,0,0.16)]'
+                        : 'text-[#E7EEF7]/72 hover:bg-white/[0.08]'
+                    }`}
+                    onClick={() => setSelectedCurrency(currency)}
+                  >
+                    {currency}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-3 text-xs leading-5 text-[#E7EEF7]/58">
+                Los precios pueden variar ligeramente según país, método de pago o tipo de cambio aplicado por el procesador.
               </p>
             </div>
-          )}
+          </div>
         </div>
 
-        <div className="mt-9 grid gap-5 lg:grid-cols-2 lg:items-stretch">
-          {pricingPlans.map((plan) => (
-            <PricingCard key={plan.name} plan={plan} isInvited={isInvited} onNavigate={onNavigate} />
+        <p className="mt-6 text-center text-xs font900 uppercase tracking-[0.12em] text-[#C7D1DE]/72 lg:hidden">
+          Desliza para comparar planes
+        </p>
+
+        <div
+          ref={carouselRef}
+          className="pricing-carousel -mx-5 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-7 lg:mx-0 lg:mt-9 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-5 lg:overflow-visible lg:px-0 lg:pb-0"
+          onScroll={handleCarouselScroll}
+        >
+          {PRICING.map((plan) => (
+            <PricingCard
+              key={plan.id}
+              plan={plan}
+              currency={selectedCurrency}
+              isAmbassadorApplied={isAmbassadorApplied}
+              selected={hasUserSelectedPlan && selectedPlanId === plan.id}
+              className="w-[88vw] max-w-[88vw] shrink-0 snap-center lg:w-auto lg:max-w-none"
+              onSelect={() => selectPlan(plan.id)}
+            />
           ))}
         </div>
 
-        <p className="mx-auto mt-7 max-w-4xl text-center text-sm leading-6 text-ink/58">
-          Las experiencias internacionales de INGLESCO Global no son una promesa inmediata. Están sujetas a avance, nivel requerido, validación académica, perfil del alumno y disponibilidad.
+        <div className="mt-1 flex items-center justify-center gap-2 lg:hidden" aria-label="Selector de plan">
+          {PRICING.map((plan) => {
+            const active = visiblePlanId === plan.id
+            return (
+              <button
+                key={plan.id}
+                type="button"
+                aria-label={`Ver plan ${plan.name}`}
+                className={`h-2.5 rounded-full transition ${
+                  active
+                    ? plan.recommended ? 'w-7 bg-[#6E8B58]' : 'w-7 bg-[#00AEEF]'
+                    : 'w-2.5 bg-[#C7D1DE]/36'
+                }`}
+                onClick={() => scrollToPlan(plan.id)}
+              />
+            )
+          })}
+        </div>
+
+        <p className="mx-auto mt-7 max-w-4xl text-center text-sm leading-6 text-[#E7EEF7]/68">
+          Las experiencias internacionales están sujetas a avance, nivel requerido, validación académica, perfil del alumno y disponibilidad. No representan una promesa inmediata.
         </p>
       </div>
     </section>
   )
 }
 
-function PricingCard({ plan, isInvited, onNavigate }) {
-  const activation = isInvited ? plan.activation.invited : plan.activation.normal
-  const activationLabel = isInvited ? `Activación con código: $${activation} USD` : `Activación normal: $${activation} USD`
+function ConfettiBurst() {
+  return (
+    <div className="pointer-events-none fixed inset-0 z-[80] overflow-hidden" aria-hidden="true">
+      {CONFETTI_PIECES.map((piece, index) => (
+        <span
+          key={index}
+          className="pricing-confetti-piece"
+          style={{
+            '--confetti-left': `${piece.left}%`,
+            '--confetti-delay': `${piece.delay}s`,
+            '--confetti-duration': `${piece.duration}s`,
+            '--confetti-rotate': `${piece.rotate}deg`,
+            '--confetti-drift': `${piece.drift}px`,
+            '--confetti-color': piece.color,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function PricingCard({ plan, currency, isAmbassadorApplied, selected, className = '', onSelect }) {
   const isGlobal = plan.recommended
+  const prices = getPrices(plan, currency, isAmbassadorApplied)
+  const activeLabel = isAmbassadorApplied ? 'Tarifa embajador' : 'Tarifa normal'
 
   return (
     <article
-      className={`relative flex h-full flex-col overflow-hidden rounded-[28px] border p-6 shadow-[0_18px_48px_rgba(11,29,61,0.08)] sm:p-8 ${
+      data-plan-id={plan.id}
+      className={`relative flex h-full flex-col overflow-hidden rounded-[28px] border p-5 shadow-[0_22px_60px_rgba(0,0,0,0.16)] backdrop-blur-xl transition sm:p-7 ${
         isGlobal
-          ? 'border-[#00AEEF]/34 bg-navy text-white'
-          : 'border-[#C7D1DE]/38 bg-white/82 text-navy'
-      }`}
+          ? 'border-[#6E8B58]/38 bg-[linear-gradient(145deg,rgba(6,23,52,0.96),rgba(18,58,143,0.34))] text-white shadow-[0_24px_70px_rgba(2,16,35,0.34),0_0_0_1px_rgba(0,174,239,0.08)]'
+          : 'border-[#1E63F2]/20 bg-[linear-gradient(145deg,rgba(18,58,143,0.34),rgba(11,29,61,0.78))] text-white shadow-[0_22px_58px_rgba(30,99,242,0.08)]'
+      } ${selected ? (isGlobal ? 'ring-2 ring-[#6E8B58]/60' : 'ring-2 ring-sky/55') : 'ring-1 ring-white/0'} ${className}`}
     >
       {isGlobal && (
         <>
-          <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#00AEEF]/18 blur-3xl" />
-          <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#00AEEF]/70 to-transparent" />
+          <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#6E8B58]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 left-10 h-48 w-48 rounded-full bg-[#00AEEF]/10 blur-3xl" />
+          <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#A9BE95]/52 to-[#00AEEF]/16" />
         </>
       )}
 
       <div className="relative flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h3 className={`text-2xl font-black ${isGlobal ? 'text-white' : 'text-navy'}`}>{plan.name}</h3>
-            {isGlobal && <Badge>Recomendado</Badge>}
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-2xl font-black text-white">{plan.name}</h3>
+            {isGlobal && (
+              <span className="rounded-full border border-[#A9BE95]/24 bg-[#F2EEE6] px-3 py-1 text-xs font900 text-[#48683B] shadow-[0_10px_24px_rgba(110,139,88,0.16)]">
+                Recomendado
+              </span>
+            )}
+            {!isGlobal && (
+              <span className="rounded-full border border-[#E7EEF7]/18 bg-[#F2EEE6]/90 px-3 py-1 text-xs font900 text-navy">
+                {plan.unselectedBadge}
+              </span>
+            )}
+            {selected && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-sky/24 bg-sky/10 px-3 py-1 text-xs font900 text-sky">
+                <Sparkles size={13} /> Seleccionado
+              </span>
+            )}
           </div>
-          <p className={`mt-4 max-w-xl text-sm leading-6 ${isGlobal ? 'text-[#E7EEF7]/80' : 'text-ink/68'}`}>
+          <p className="mt-3 text-sm font900 text-[#F2EEE6]">{plan.positioning}</p>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#C7D1DE]">
             {plan.description}
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {plan.highlights.map((item) => (
+              <span
+                key={item}
+                className={`rounded-full border px-2.5 py-1 text-[11px] font900 ${
+                  isGlobal
+                    ? 'border-[#6E8B58]/36 bg-[#6E8B58]/14 text-[#DCE7D2]'
+                    : 'border-[#C7D1DE]/18 bg-[#E7EEF7]/[0.06] text-[#C7D1DE]'
+                }`}
+              >
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="relative mt-7">
-        <div className="flex items-end gap-2">
-          <span className={`text-4xl font-black leading-none sm:text-5xl ${isGlobal ? 'text-white' : 'text-navy'}`}>
-            ${plan.monthly} USD
+      <div className="relative mt-5">
+        <div className="flex flex-wrap items-end gap-x-3 gap-y-1">
+          <span className="text-[34px] font-black leading-none text-white sm:text-5xl">
+            {formatPrice(prices.monthly, currency)}
           </span>
-          <span className={`pb-1 text-sm font900 ${isGlobal ? 'text-[#E7EEF7]/68' : 'text-ink/58'}`}>/ mes</span>
+          <span className="pb-1 text-sm font900 text-[#E7EEF7]/74">/ mes</span>
         </div>
-        <div className={`mt-4 inline-flex rounded-full border px-4 py-2 text-sm font900 ${
-          isGlobal
-            ? 'border-[#E7EEF7]/24 bg-white/[0.06] text-[#E7EEF7]'
-            : 'border-[#1E63F2]/12 bg-[#E7EEF7]/54 text-cobalt'
-        }`}>
-          {activationLabel}
+
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm font900">
+          <span className={`rounded-full border px-3 py-1 text-xs font900 ${
+            isAmbassadorApplied ? 'border-sky/24 bg-sky/10 text-sky' : 'border-[#C7D1DE]/16 bg-[#E7EEF7]/[0.06] text-[#C7D1DE]'
+          }`}>
+            {activeLabel}
+          </span>
+          <span className="text-[#E7EEF7]/50">·</span>
+          <span className="text-[#CB6C3A]">Activación: {formatPrice(prices.activation, currency)}</span>
         </div>
-        {isInvited && (
-          <p className={`mt-3 text-sm font900 ${isGlobal ? 'text-sky' : 'text-cobalt'}`}>
-            Ahorras ${plan.activation.savings} USD en activación con código.
+
+        <div className="mt-3 space-y-2 text-sm font900">
+          <PriceReferenceLine prices={prices} currency={currency} isAmbassadorApplied={isAmbassadorApplied} />
+        </div>
+      </div>
+
+      <div className="relative mt-5 grid gap-2">
+        {isGlobal && (
+          <p className="mb-1 text-sm font900 leading-6 text-[#F2EEE6]">
+            Incluye Starter + preparación internacional avanzada
           </p>
         )}
-      </div>
-
-      <div className="relative mt-7 grid gap-2.5">
         {plan.features.map((feature) => (
           <div key={feature} className="flex items-start gap-3">
-            <CheckCircle2 size={17} className={`mt-0.5 shrink-0 ${isGlobal ? 'text-sky' : 'text-cobalt'}`} />
-            <span className={`text-sm leading-6 ${isGlobal ? 'text-[#E7EEF7]/86' : 'text-ink/72'}`}>{feature}</span>
+            <CheckCircle2 size={17} className={`mt-0.5 shrink-0 ${isGlobal ? 'text-[#A9BE95]' : 'text-[#00AEEF]/70'}`} />
+            <span className="text-sm leading-5 text-[#C7D1DE]">{feature}</span>
           </div>
         ))}
       </div>
 
-      <p className={`relative mt-6 text-xs leading-5 ${isGlobal ? 'text-[#E7EEF7]/62' : 'text-ink/50'}`}>
-        {plan.disclaimer}
-      </p>
-
       <Button
-        onClick={() => onNavigate?.('plans')}
-        className={`relative mt-7 h-12 w-full ${
-          isGlobal
-            ? 'bg-white text-navy shadow-[0_18px_36px_rgba(0,174,239,0.16)] hover:bg-[#E7EEF7]'
-            : ''
+        onClick={onSelect}
+        className={`relative mt-auto min-h-[52px] w-full bg-sky px-5 py-0 text-[15px] font800 text-navy shadow-[0_18px_36px_rgba(0,174,239,0.16)] hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky sm:min-h-[56px] sm:text-base ${
+          isGlobal ? 'hover:shadow-[0_18px_42px_rgba(110,139,88,0.28)]' : ''
         }`}
       >
         {plan.cta} <ArrowRight size={18} />
       </Button>
     </article>
+  )
+}
+
+function PriceReferenceLine({ prices, currency, isAmbassadorApplied }) {
+  if (isAmbassadorApplied) {
+    return (
+      <p className="leading-6 text-[#E7EEF7]/58">
+        Precio normal: {formatPrice(prices.normalMonthly, currency)} / mes + {formatPrice(prices.normalActivation, currency)} activación.
+      </p>
+    )
+  }
+
+  return (
+    <p className="leading-6 text-[#E7EEF7]/62">
+      Con código:{' '}
+      <span className="text-[#00AEEF]">
+        {formatPrice(prices.ambassadorMonthly, currency)} / mes + {formatPrice(prices.ambassadorActivation, currency)} activación
+      </span>
+      .
+    </p>
   )
 }

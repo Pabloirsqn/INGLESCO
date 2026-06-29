@@ -36,6 +36,7 @@ export function Badge({ children, tone = 'blue' }) {
     blue: 'bg-blue-50 text-cobalt',
     navy: 'bg-navy text-white',
     green: 'bg-emerald-50 text-emerald-700',
+    mint: 'bg-emerald-100 text-emerald-800',
     locked: 'bg-slate-100 text-slate-600',
   }
   return <span className={`rounded-full px-3 py-1 text-xs font900 ${tones[tone]}`}>{children}</span>
